@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   CheckBox,
+  Image
 } from "react-native";
 
 import { Asset } from "expo-asset";
@@ -19,7 +20,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>Logo</Text>
+        <Text style={styles.logo}><Image source = {require("./assets/logo.png")}/></Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -70,10 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    fontWeight: "bold",
-    fontSize: 50,
     color: "rgb(42,54,59)",
-    marginBottom: 40,
   },
   inputView: {
     width: "80%",
