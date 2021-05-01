@@ -12,7 +12,6 @@ class User(Base):
     username = db.Column(db.String(64))
     email    = db.Column(db.String(64), unique=True, index=True)
     password = db.Column(db.String(128))
-    children = relationship("Share")
 
     def __repr__(self):
         return "<User(id='%s', username='%s', email='%s')>" % (
