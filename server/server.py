@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 import random
 from sqlalchemy.orm import sessionmaker
 import sys
+import datetime
 sys.path.append('./models')
 
 from models import *
@@ -62,7 +63,7 @@ def login_user():
     else:
         response = make_response(
                         jsonify(
-                            {"message": "Logged in",
+                            {"message": "Error on login",
                              "data": str(arg2)
                             }
                         ),
@@ -83,7 +84,6 @@ def register_user():
             )
         return response
     else:
-        registered_user = User(username=request.get_json()['username'], password=request.get_json()['password'], email=request.get_json()['email'])
         query = session.query(User.email).filter_by(email=request.get_json()['email']).count()
         if(query >= 1):
             response = make_response(
@@ -96,6 +96,16 @@ def register_user():
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
         else:
+            date=request.get_json()['date_of_birth'].split('-')
+            new_date=datetime.date(int(date[2]), int(date[1]), int(date[0]))
+            registered_user = User(
+                full_name=request.get_json()['full_name'], 
+                username=request.get_json()['username'], 
+                password=request.get_json()['password'],
+                email=request.get_json()['email'], 
+                phone_number=request.get_json()['phone_number'], 
+                date_of_birth=new_date
+            )
             session.add(registered_user)
             session.commit()
             response = make_response(

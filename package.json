@@ -16,12 +16,14 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-form-validator": "^0.3.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.0.0",
     "react-native-web": "^0.16.1",
     "react-navigation-stack": "^2.10.4",
+    "react-validation": "^3.0.7",
     "undefined": "react-native-community/masked-view"
   },
   "devDependencies": {

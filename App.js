@@ -1,12 +1,11 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import SignIn from "./SignIn";
 import { Asset } from "expo-asset";
 import { AppLoading } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import SignUp from "./SignUp";
-
+import SignUp from "./src/views/SignUp";
+import SignIn from "./src/views/SignIn";
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {

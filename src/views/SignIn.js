@@ -27,7 +27,7 @@ export default class SignIn extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.logo}>
-          <Image source={require("./assets/logo.png")} />
+          <Image source={require("../../assets/logo.png")} />
         </Text>
         <View style={styles.inputView}>
           <TextInput
