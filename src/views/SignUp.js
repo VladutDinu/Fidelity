@@ -136,10 +136,10 @@ export default class SignUp extends React.Component {
             placeholderTextColor="#003f5c"
             onChangeText={(text) => this.handleFullName(text)}
           />
-          {this.state.VALID_full_name ? null :
-            <Text>Name has to be at least 10 chars long</Text>
-          }
         </View>
+        {this.state.VALID_full_name ? null :
+            <Text style={{paddingBottom:15}}>Name has to be at least 10 chars long</Text>
+          }
 
 
         <View style={styles.inputView}>
@@ -150,11 +150,11 @@ export default class SignUp extends React.Component {
             value={this.state.username}
             onChangeText={(text) => this.handleUsername(text.split(" ").join(""))}
           />
-          {this.state.VALID_username ? null :
-            <Text>Username has to be at least 8 chars long</Text>
-          }
+          
         </View>
-
+        {this.state.VALID_username ? null :
+            <Text style={{paddingBottom:15}}>Username has to be at least 8 chars long</Text>
+          }
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -164,10 +164,11 @@ export default class SignUp extends React.Component {
             value={this.state.password}
             onChangeText={(text) => this.handlePassword(text.split(" ").join(""))}
           />
-          {this.state.VALID_password ? null :
-            <Text>Password must be 8 chars long, have at least one upper case letter and one special char</Text>
-          }
+          
         </View>
+        {this.state.VALID_password ? null :
+            <Text style={{paddingBottom:15}}>Password must be 8 chars long, have at least one upper case letter and one special char</Text>
+          }
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -177,10 +178,11 @@ export default class SignUp extends React.Component {
             value={this.state.confirm_pass}
             onChangeText={(text) => this.handleConfirmPassword(text.split(" ").join(""))}
           />
-          {this.state.VALID_confirm_password ? null :
-            <Text>Passwords must match</Text>
-          }
+          
         </View>
+        {this.state.VALID_confirm_password ? null :
+            <Text style={{paddingBottom:15}}>Passwords must match</Text>
+          }
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -189,10 +191,11 @@ export default class SignUp extends React.Component {
             value={this.state.email}
             onChangeText={(text) => this.handleEmail(text.split(" ").join(""))}
           />
-          {this.state.VALID_email ? null :
-            <Text>Name has to be at least 10 chars long</Text>
-          }
+          
         </View>
+        {this.state.VALID_email ? null :
+            <Text style={{paddingBottom:15}}>Name has to be at least 10 chars long</Text>
+          }
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -201,10 +204,11 @@ export default class SignUp extends React.Component {
             value={this.state.phone_number}
             onChangeText={(text) => this.handlePhoneNumber(text.split(" ").join(""))}
           />
-          {this.state.VALID_phone_number ? null :
-            <Text>Name has to be at least 10 chars long</Text>
-          }
+          
         </View>
+        {this.state.VALID_phone_number ? null :
+            <Text style={{paddingBottom:15}}>Name has to be at least 10 chars long</Text>
+          }
         <View style={{ flexDirection: "row" }}>
           <View>
             <Text style={{ marginTop: 3, marginRight: 70, fontSize: 17 }} >Gender</Text>

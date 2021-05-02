@@ -12,6 +12,7 @@ import {
 import { Asset } from "expo-asset";
 import { AppLoading } from "expo";
 import SignUp from "./SignUp";
+import ForgotPass from "./ForgotPass"
 
 export default class SignIn extends React.Component {
   state = {
@@ -51,7 +52,7 @@ export default class SignIn extends React.Component {
           <View style={{ marginRight: 50 }}>
             <Text style={styles.rememberMe}>Remember Me</Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("ForgotPass")}>
             <Text style={styles.forgotPass}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
