@@ -27,6 +27,16 @@ export default class ForgotPass extends React.Component {
         <Text style={styles.logo}>
           <Image source={require("../../assets/logo.png")} />
         </Text>
+        <View>
+          <Text style={styles.forgotPassText}>
+            Forgot Password?
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.codeSentText}>
+            We will send you a code to reset your password.
+          </Text>
+        </View>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -35,8 +45,11 @@ export default class ForgotPass extends React.Component {
             onChangeText={(text) => this.setState({ email: text })}
           />
         </View>
-        <TouchableOpacity style={styles.SubmitBtn}>
-          <Text style={styles.SubmitText}>Submit</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("CodeVerification")} style={styles.SubmitBtn} >
+          <Text style={styles.SubmitText} >Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("SignIn")} style={styles.BackText} >
+          <Text>Back to Sign In</Text>
         </TouchableOpacity>
       </View>
     );
@@ -51,6 +64,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "column",
   },
+  forgotPassText:{
+    fontSize:25,
+    paddingRight:100,
+    paddingBottom:10
+  },
+  codeSentText:{
+    fontSize:14,
+    paddingBottom:10
+
+  },
   logo: {
     color: "rgb(42,54,59)",
     marginTop: 50,
@@ -63,7 +86,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 15,
+    marginTop: 5,
     marginBottom: 7.5,
   },
   SubmitText: {
@@ -84,4 +107,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "black",
   },
+  BackText:{
+    fontSize:10,
+    paddingTop:10
+  }
 });

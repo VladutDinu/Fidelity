@@ -7,6 +7,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SignUp from "./src/views/SignUp";
 import SignIn from "./src/views/SignIn";
 import ForgotPass from "./src/views/ForgotPass";
+import CodeVerification from "./src/views/CodeVerification";
+
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {
@@ -18,6 +20,7 @@ export default class App extends React.Component {
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="ForgotPass" component={ForgotPass} />
+            <Stack.Screen name="CodeVerification" component={CodeVerification} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
