@@ -1,4 +1,3 @@
-# Fidelity app
 Fidelity app
 ===============
 
@@ -6,7 +5,6 @@ Fidelity app build using react native
 
 - npm start
 
-# TO DO
 TO DO
 =========
 
