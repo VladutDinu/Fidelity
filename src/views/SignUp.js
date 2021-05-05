@@ -222,7 +222,7 @@ export default class SignUp extends React.Component {
             <Text style={{ color: "white", fontSize: 15 }}>Female</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.createAccBtn} onPress={this.registerButton} >
+        <TouchableOpacity style={styles.createAccBtn} onPress={this.registerButton} onPressIn={() => this.props.navigation.navigate("CodeVerification")}  >
           <Text style={styles.createAccText} >Create account</Text>
         </TouchableOpacity>
       </View>
