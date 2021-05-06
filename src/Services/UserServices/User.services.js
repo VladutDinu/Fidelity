@@ -1,5 +1,6 @@
 const REGISTER_URL = 'http://127.0.0.1:5002/register_user';
 const GET_USERS_URL = 'http://127.0.0.1:5002/get_users';
+const GET_USERS_EMAIL_URL = 'http://127.0.0.1:5002/get_users_email';
 const LOGIN_URL = 'http://127.0.0.1:5002/login_user';
 const RESET_PASSWORD_URL = 'http://127.0.0.1:5002/reset_password';
 export function register_user(state){
@@ -17,23 +18,30 @@ export function register_user(state){
     xhr.open("POST", REGISTER_URL);
 
     xhr.setRequestHeader("Content-Type", "application/json");
-
     xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-        console.log(xhr.status);
-        console.log(xhr.responseText);
-    }};
+        if (xhr.readyState === 4) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+        }
+    };
 
     xhr.send(JSON.stringify(json));
-
+    
 }
 
-export function get_users(){
+export async function get_users(){
     fetch(GET_USERS_URL)
     .then(response => response.json())  
     .then(json => {
         console.log(json);
     })
+}
+export async function get_users_email(email){
+    let hostEmailData  = await fetch(GET_USERS_EMAIL_URL+"?email="+email)
+    //use string literals
+    let hostEmailJson = await hostEmailData.json();
+    return hostEmailJson;
+
 }
 
 export function login_user(username, email, password){
@@ -74,5 +82,4 @@ export function reset_password(password){
     }};
 
     xhr.send(JSON.stringify(json));
-
 }

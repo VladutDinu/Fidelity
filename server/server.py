@@ -5,8 +5,9 @@ from sqlalchemy.orm import sessionmaker
 import sys
 import datetime
 from flask_mail import Mail, Message
-
-
+import math
+from pytz import timezone
+from threading import Thread
 sys.path.append('./models')
 import hashlib
 from models import *
@@ -24,6 +25,17 @@ app.config['MAIL_PASSWORD'] = 'Fidelity123@'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail= Mail(app)
+
+def send_async_email(app, msg):
+    with app.app_context():
+       mail.send(msg)
+
+def send_email(subject, sender, recipients, text_body):
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.body = text_body
+    thr = Thread(target=send_async_email, args=[app, msg])
+    thr.start()
+
 
 # Path for our main Svelte page
 @app.route("/")
@@ -50,6 +62,24 @@ def get_users():
                     jsonify(
                         users
                     ),
+                    200,
+                )
+    response.headers["Content-Type"] = "application/json"
+    return response
+
+# Path for all the static files (compiled JS/CSS, etc.)
+@app.route("/get_users_email", methods = ['GET'])
+def get_users_email():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    query = session.query(UserRegistration.Key).filter_by(user_id=session.query(User.id).filter_by(email=request.args['email']).all()[0][0]).all()
+    print(query[0][0])
+    response = make_response(
+                    jsonify({
+                        "code": query[0][0]
+                    }),
                     200,
                 )
     response.headers["Content-Type"] = "application/json"
@@ -120,14 +150,27 @@ def register_user():
                 date_of_birth=new_date,
                 Key=final_key
             )
+            verifCode = math.floor(100000+random.randint(1,900000))
             session.add(registered_user)
+            session.commit()
+            id=session.query(User.id).filter_by(email=request.get_json()['email']).all()[0][0]
+            verification_user = UserRegistration(     
+                user_id         =id,
+                Key             =str(verifCode),     
+                emailsenttime   =datetime.datetime.strptime(str(datetime.datetime.now(timezone('Europe/Bucharest'))).split('.')[0],"%Y-%m-%d %H:%M:%S")
+            )
+            
+            session.add(verification_user)
             session.commit()
             response = make_response(
                     jsonify(
-                        {"message": "Successfuly registered"}
+                        {"message": "Successfuly registered",
+                        }
                     ),
                     200,
                 )
+            send_email('Account verification', sender='fidelity.api@gmail.com',  recipients=['jahebiv301@87708b.com'], 
+                       text_body=f"Hello,\n\nTo verify your account please introduce this code into the application {verifCode} !\n\nFidelity API team")
             response.headers["Content-Type"] = "application/json"
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
@@ -170,6 +213,38 @@ def forgot_password():
 @app.route("/reset_password", methods = ['POST'])
 def reset_password():
     arg2 = request.args['key']
+    query = session.query(User.email, User.phone_number).filter_by(Key='BASIC_'+arg2).count()
+    if(query==1):
+        query = session.query(User).filter_by(Key='BASIC_'+arg2)
+        query[0].password = request.get_json()['password']
+        session.merge(query[0])
+        session.commit()
+        response = make_response(
+                        jsonify(
+                            {"message": "Password has been successfuly changed",
+                             "data": str(arg2)
+                            }
+                        ),
+                        200,
+                    )
+        response.headers["Content-Type"] = "application/json"
+        return response
+    else:
+        response = make_response(
+                        jsonify(
+                            {"message": "Couldnt find data in db",
+                             "data": str(arg2)
+                            }
+                        ),
+                        400,
+                    )
+        response.headers["Content-Type"] = "application/json"
+        return response
+
+@app.route("/validate_user", methods = ['POST'])
+def validate_user():
+    email = request.args['email']
+    verifCode = request.args['code']
     query = session.query(User.email, User.phone_number).filter_by(Key='BASIC_'+arg2).count()
     if(query==1):
         query = session.query(User).filter_by(Key='BASIC_'+arg2)

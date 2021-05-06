@@ -42,9 +42,11 @@ export default class SignUp extends React.Component {
       this.state.VALID_confirm_password &&
       this.state.VALID_email &&
       this.state.VALID_phone_number &&
-      this.state.VALID_date_of_birth) {
-      register_user(this.state);
-    }
+      this.state.VALID_date_of_birth) 
+      {
+        register_user(this.state);
+        this.props.navigation.navigate({name: "CodeVerification", params: { userEmail: this.state.email }})
+      }
   };
 
   handleUsername = (text) => {
@@ -222,7 +224,9 @@ export default class SignUp extends React.Component {
             <Text style={{ color: "white", fontSize: 15 }}>Female</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.createAccBtn} onPress={this.registerButton} onPressIn={() => this.props.navigation.navigate("CodeVerification")}  >
+        <TouchableOpacity style={styles.createAccBtn} onPress={this.registerButton} 
+        //onPressIn={() => this.props.navigation.navigate("CodeVerification", { params: this.state.email })}  
+        >
           <Text style={styles.createAccText} >Create account</Text>
         </TouchableOpacity>
       </View>

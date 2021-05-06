@@ -20,4 +20,15 @@ class User(Base):
         return "<User(id='%s', password='%s', username='%s', email='%s', phone_number='%s', date_of_birth='%s')>" % (
                                 self.id, self.password, self.username, self.email, self.phone_number, self.date_of_birth)
 
+class UserRegistration(Base):
+    __tablename__ = 'user_registration'
+    id              = db.Column(db.Integer, primary_key=True)
+    user_id         = db.Column(db.Integer, ForeignKey('user.id'))
+    Key             = db.Column(db.String(6))
+    emailsenttime   = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return "<User(id='%s', user_id='%s', Key='%s')>" % (
+                                self.id, self.user_id, self.Key)
+
 Base.metadata.create_all(engine)
