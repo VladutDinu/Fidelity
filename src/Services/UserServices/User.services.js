@@ -3,6 +3,7 @@ const GET_USERS_URL = 'http://127.0.0.1:5002/get_users';
 const GET_USERS_EMAIL_URL = 'http://127.0.0.1:5002/get_users_email';
 const LOGIN_URL = 'http://127.0.0.1:5002/login_user';
 const RESET_PASSWORD_URL = 'http://127.0.0.1:5002/reset_password';
+const FORGOT_PASSWORD_URL = 'http://127.0.0.1:5002/forgot_password';
 export function register_user(state){
     console.log(state)
     var json = {
@@ -82,4 +83,12 @@ export function reset_password(password){
     }};
 
     xhr.send(JSON.stringify(json));
+}
+
+export async function forgotPass(email){
+    fetch(FORGOT_PASSWORD_URL+"?email="+email)
+    .then(response => response.json())  
+    .then(json => {
+        console.log(json);
+    })
 }

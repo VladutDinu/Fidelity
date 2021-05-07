@@ -10,18 +10,23 @@ import {
 } from "react-native";
 import { Asset } from "expo-asset";
 import { AppLoading } from "expo";
-
+import { forgotPass } from "../Services/UserServices/User.services";
 export default class ForgotPass extends React.Component {
   state = {
     email: "",
     password: "",
   };
+  forgotPassCall = () => {
+    forgotPass(this.state.email);
+    this.props.navigation.navigate({name: "CodeVerification", params: { userEmail: this.state.email }});
+  }
 
   render() {
     this.props.navigation.setOptions({
       headerBackTitle: "",
       headerShown: false,
     });
+  
     return (
       <View style={styles.container}>
         <Text style={styles.logo}>
@@ -45,7 +50,7 @@ export default class ForgotPass extends React.Component {
             onChangeText={(text) => this.setState({ email: text })}
           />
         </View>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("CodeVerification")} style={styles.SubmitBtn} >
+        <TouchableOpacity onPress={this.forgotPassCall} style={styles.SubmitBtn} >
           <Text style={styles.SubmitText} >Submit</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("SignIn")} style={styles.BackText} >
