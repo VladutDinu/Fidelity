@@ -16,7 +16,8 @@ import { AppLoading } from "expo";
 export default class PhoneVerification extends React.Component {
   state = {
     phone_number: "",
-    check: false,
+    checkPrivacy: false,
+    checkTerms:false,
     VALID_full_name: true,
     VALID_username: true,
     VALID_password: true,
@@ -126,7 +127,7 @@ export default class PhoneVerification extends React.Component {
         <KeyboardAvoidingView
           keyboardVerticalOffset={50}
           behavior={"padding"}
-          style={{ flex: 1, alignItems: "center", padding: 10 }}
+          style={{ flex: 1, alignItems: "center", padding: 10 ,paddingTop:"30%"}}
         >
           <Text style={styles.logo}>
             <Image source={require("../../assets/logo.png")} />
@@ -147,24 +148,25 @@ export default class PhoneVerification extends React.Component {
               />
             </View>
           </View>
+          <View style={{ flexDirection: 'column' }}>
             <View style={{ flexDirection: 'row' }}>
             <CheckBox
-              value={this.state.checked}
-              onValueChange={() => this.setState({ checked: !this.state.checked })}
+              value={this.state.checkTerms}
+              onValueChange={() => this.setState({ checkTerms: !this.state.checkTerms })}
             />
-            <Text style={{marginTop: 5}}> Agree to terms and conditions</Text>
+            <Text style={{marginTop: 5}}> I have read and agree to the <Text style={{textDecorationLine: 'underline',}} onPressIn={() => this.props.navigation.navigate("TermsAndConditions")}>Terms and conditions</Text></Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
             <CheckBox
-              value={this.state.checked}
-              onValueChange={() => this.setState({ checked: !this.state.checked })}
+              value={this.state.checkPrivacy}
+              onValueChange={() => this.setState({ checkPrivacy: !this.state.checkPrivacy })}
             />
-            <Text style={{marginTop: 5}}>I have read and understood the Privacy Policy</Text>
+            <Text style={{marginTop: 5}}>I have read and understood the <Text style={{textDecorationLine: 'underline' }} onPressIn={() => this.props.navigation.navigate("PrivacyPolicy")}>Privacy Policy</Text></Text>
+            </View>
             </View>
           <TouchableOpacity
             style={styles.Continue}
             onPress={this.registerButton}
-            //onPressIn={() => this.props.navigation.navigate("CodeVerification", { params: this.state.email })}
           >
             <Text style={styles.ContinueText}>Continue</Text>
           </TouchableOpacity>
@@ -230,6 +232,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 50,
     marginBottom: 10,
+    marginTop:15
   },
   ContinueText: {
     alignItems: "center",

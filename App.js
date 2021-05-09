@@ -9,6 +9,9 @@ import SignIn from "./src/views/SignIn";
 import ForgotPass from "./src/views/ForgotPass";
 import CodeVerification from "./src/views/CodeVerification";
 import PhoneVerification from "./src/views/PhoneVerification";
+import PrivacyPolicy from "./src/views/PrivacyPolicy";
+import TermsAndConditions from "./src/views/TermsAndConditions";
+
 
 const Stack = createStackNavigator();
 
@@ -22,6 +25,8 @@ export default class App extends React.Component {
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="ForgotPass" component={ForgotPass} />
             <Stack.Screen name="CodeVerification" component={CodeVerification} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+            <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
