@@ -1,7 +1,7 @@
 const REGISTER_URL = 'http://127.0.0.1:5002/register_user';
 const GET_USERS_URL = 'http://127.0.0.1:5002/get_users';
 const GET_USERS_EMAIL_URL = 'http://127.0.0.1:5002/get_users_email';
-const GET_USERS_EMAIL_URL = 'http://127.0.0.1:5002/get_users_telephone_number';
+const GET_USERS_NUMBER_URL = 'http://127.0.0.1:5002/get_users_telephone_number';
 const LOGIN_URL = 'http://127.0.0.1:5002/login_user';
 const RESET_PASSWORD_URL = 'http://127.0.0.1:5002/reset_password';
 const FORGOT_PASSWORD_URL = 'http://127.0.0.1:5002/forgot_password';
@@ -47,9 +47,9 @@ export async function get_users_email(email){
 }
 
 export async function get_users_telephone_number(telephone_number){
-    let telephoneNumberJson  = await fetch(GET_USERS_EMAIL_URL+"?telephone_number="+telephone_number)
+    let telephoneNumberData  = await fetch(GET_USERS_NUMBER_URL+"?telephone_number="+telephone_number)
 
-    let telephoneNumberJson = await hostEmailData.json();
+    let telephoneNumberJson = await telephoneNumberData.json();
     return telephoneNumberJson;
 
 }
