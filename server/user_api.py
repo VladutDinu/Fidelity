@@ -66,6 +66,22 @@ def get_users_email():
     response.headers["Content-Type"] = "application/json"
     return response
 
+    # Path for all the static files (compiled JS/CSS, etc.)
+@user_api.route("/get_users_telephone_number", methods = ['GET'])
+def get_users_telephone_number():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    query = session.query(User.phone_number).filter_by(phone_number=request.args['telephone_number']).count()
+    response = make_response(
+                    jsonify({
+                        "found": 1
+                    }),
+                    200,
+                )
+    response.headers["Content-Type"] = "application/json"
+    return response
 
 
 # Path for all the static files (compiled JS/CSS, etc.)
@@ -170,7 +186,6 @@ def forgot_password():
     if(query==1):
         query = session.query(User.email, User.phone_number).filter_by(email=arg2).all()
         link='http://127.0.0.1:5002/reset_password?key='+str(hashlib.md5((query[0][0]+query[0][1]).encode('utf-8')).hexdigest())
-        #send email with a md5 cached info for identifying in db
         msg = Message('Account recovery', sender='fidelity.api@gmail.com', recipients=['jahebiv301@87708b.com'])
         msg.body = (f"Hello,\n\nTo reset your password please access this link {link} !\n\nFidelity API team")
         mail.send(msg)

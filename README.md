@@ -19,3 +19,4 @@ TO DO
 - and then request get on the codeVerif view to check the code and modify validate_user✔️
 - add option to view the password instead of confirming it
 - add user only if he verifies the validation code
+- keep user conected if he exits the app
