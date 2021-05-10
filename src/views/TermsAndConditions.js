@@ -1,119 +1,178 @@
-import * as React from "react";
+import React, { Component } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
-  TextInput,
+  Text,
+  ScrollView,
+  Dimensions,
   TouchableOpacity,
-  CheckBox,
-  Image,
 } from "react-native";
-import { Asset } from "expo-asset";
-import { AppLoading } from "expo";
-import { forgotPass } from "../Services/UserServices/User.services";
+
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 20;
+  return (
+    layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom
+  );
+};
+
 export default class TermsAndConditions extends React.Component {
   state = {
-    email: "",
-    password: "",
+    accepted: false,
   };
-  forgotPassCall = () => {
-    forgotPass(this.state.email);
-    this.props.navigation.navigate({name: "CodeVerification", params: { userEmail: this.state.email }});
-  }
 
   render() {
     this.props.navigation.setOptions({
       headerBackTitle: "",
       headerShown: false,
     });
-  
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>
-          <Image source={require("../../assets/logo.png")} />
-        </Text>
-        <View>
-          <Text style={styles.forgotPassText}>
-            Forgot Password?
+        <Text style={styles.title}>Terms and conditions</Text>
+        <ScrollView
+          style={styles.tcContainer}
+          onScroll={({ nativeEvent }) => {
+            if (isCloseToBottom(nativeEvent)) {
+              this.setState({
+                accepted: true,
+              });
+            }
+          }}
+        >
+          <Text style={styles.tcP}>
+            Welcome to our website. If you continue to browse and use this
+            website, you are agreeing to comply with and be bound by the
+            following terms and conditions of use, which together with our
+            privacy policy govern [business name]’s relationship with you in
+            relation to this website. If you disagree with any part of these
+            terms and conditions, please do not use our website.
           </Text>
-        </View>
-        <View>
-          <Text style={styles.codeSentText}>
-            We will send you a code to reset your password.
+          <Text style={styles.tcP}>
+            The term ‘[business name]’ or ‘us’ or ‘we’ refers to the owner of
+            the website whose registered office is [address]. Our company
+            registration number is [company registration number and place of
+            registration]. The term ‘you’ refers to the user or viewer of our
+            website.
           </Text>
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.inputText}
-            placeholder="Email..."
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => this.setState({ email: text })}
-          />
-        </View>
-        <TouchableOpacity onPress={this.forgotPassCall} style={styles.SubmitBtn} >
-          <Text style={styles.SubmitText} >Submit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("SignIn")} style={styles.BackText} >
-          <Text>Back to Sign In</Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} The content of the pages of this website is for your
+            general information and use only. It is subject to change without
+            notice.
+          </Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} This website uses cookies to monitor browsing
+            preferences. If you do allow cookies to be used, the following
+            personal information may be stored by us for use by third parties:
+            [insert list of information].
+          </Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} Neither we nor any third parties provide any warranty or
+            guarantee as to the accuracy, timeliness, performance, completeness
+            or suitability of the information and materials found or offered on
+            this website for any particular purpose. You acknowledge that such
+            information and materials may contain inaccuracies or errors and we
+            expressly exclude liability for any such inaccuracies or errors to
+            the fullest extent permitted by law.
+          </Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} Your use of any information or materials on this website
+            is entirely at your own risk, for which we shall not be liable. It
+            shall be your own responsibility to ensure that any products,
+            services or information available through this website meet your
+            specific requirements.
+          </Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} This website contains material which is owned by or
+            licensed to us. This material includes, but is not limited to, the
+            design, layout, look, appearance and graphics. Reproduction is
+            prohibited other than in accordance with the copyright notice, which
+            forms part of these terms and conditions.
+          </Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} All trademarks reproduced in this website, which are not
+            the property of, or licensed to the operator, are acknowledged on
+            the website. Unauthorised use of this website may give rise to a
+            claim for damages and/or be a criminal offence.
+          </Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} From time to time, this website may also include links to
+            other websites. These links are provided for your convenience to
+            provide further information. They do not signify that we endorse the
+            website(s). We have no responsibility for the content of the linked
+            website(s).
+          </Text>
+          <Text style={styles.tcL}>
+            {"\u2022"} Your use of this website and any dispute arising out of
+            such use of the website is subject to the laws of England, Northern
+            Ireland, Scotland and Wales.
+          </Text>
+          <Text style={styles.tcP}>
+            The use of this website is subject to the following terms of use
+          </Text>
+        </ScrollView>
+
+        <TouchableOpacity 
+          disabled={!this.state.accepted}
+          onPress={() => this.props.navigation.navigate("PhoneVerification")}
+          style={this.state.accepted ? styles.button : styles.buttonDisabled}
+        >
+          <Text style={styles.buttonLabel}>Back</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "rgb(225,225,225)",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    flexDirection: "column",
-  },
-  forgotPassText:{
-    fontSize:25,
-    paddingRight:100,
-    paddingBottom:10
-  },
-  codeSentText:{
-    fontSize:14,
-    paddingBottom:10
+const { width, height } = Dimensions.get("window");
 
+const styles = {
+  container: {
+    marginTop: 20,
+    marginLeft: 10,
+    marginRight: 10,
   },
-  logo: {
-    color: "rgb(42,54,59)",
-    marginTop: 50,
-    marginBottom: 50,
+  title: {
+    marginTop:10,
+    fontSize: 22,
+    alignSelf: "center",
   },
-  SubmitBtn: {
-    width: "80%",
-    backgroundColor: "rgb(42,54,59)",
+  tcP: {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 12,
+  },
+  tcP: {
+    marginTop: 10,
+    fontSize: 12,
+  },
+  tcL: {
+    marginLeft: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 12,
+  },
+  tcContainer: {
+    marginTop: 15,
+    marginBottom: 15,
+    height: height * 0.8,
+  },
+
+  button: {
+    backgroundColor: "#136AC7",
     borderRadius: 5,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 5,
-    marginBottom: 7.5,
+    padding: 10,
   },
-  SubmitText: {
-    color: "white",
-    fontSize: 15,
-  },
-  inputView: {
-    width: "80%",
-    backgroundColor: "white",
+
+  buttonDisabled: {
+    backgroundColor: "#999",
     borderRadius: 5,
-    height: 50,
-    marginBottom: 20,
-    justifyContent: "center",
-    padding: 20,
+    padding: 10,
   },
-  inputText: {
-    height: 50,
-    fontSize: 15,
-    color: "black",
+
+  buttonLabel: {
+    fontSize: 14,
+    color: "#FFF",
+    alignSelf: "center",
   },
-  BackText:{
-    fontSize:10,
-    paddingTop:10
-  }
-});
+};
+
+

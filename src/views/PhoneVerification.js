@@ -154,7 +154,7 @@ export default class PhoneVerification extends React.Component {
               value={this.state.checkTerms}
               onValueChange={() => this.setState({ checkTerms: !this.state.checkTerms })}
             />
-            <Text style={{marginTop: 5}}> I have read and agree to the <Text style={{textDecorationLine: 'underline',}} onPressIn={() => this.props.navigation.navigate("TermsAndConditions")}>Terms and conditions</Text></Text>
+            <Text style={{marginTop: 5}}> I have read and agree to the <Text style={{textDecorationLine: 'underline',}} onPress={() => this.props.navigation.navigate("TermsAndConditions")}>Terms and conditions</Text></Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
             <CheckBox
