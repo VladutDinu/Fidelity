@@ -60,8 +60,8 @@ export default class CodeVerification extends React.Component {
           <Image source={require("../../assets/logo.png")} />
         </Text>
         <View >
-          <Text style={styles.emailText}>
-            Please type the verification code sent to your email.
+          <Text style={styles.numberText}>
+            Please type the verification code sent to +40 7** *** 450
           </Text>
         </View>
         <View >
@@ -91,6 +91,7 @@ export default class CodeVerification extends React.Component {
         </View>
         <TouchableOpacity
           onPress={this.submitCode}
+          onPressIn={() => this.props.navigation.navigate("MainPage")}
           style={styles.ConfirmBtn}
         >
           <Text style={styles.ConfirmText}>Confirm</Text>
@@ -110,13 +111,12 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 50,
   },
-  emailText:{
+  numberText:{
     alignItems:"center",
     justifyContent:"center",
     fontSize:20,
     paddingRight:30,
     paddingLeft:30,
-    fontFamily:"sans-serif-condensed"
   },
   containerInput:{
     flexDirection:'row',
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     width: "70%",
     backgroundColor: "rgb(42,54,59)",
     borderRadius: 5,
-    height: 50,
+    height: "7.5%",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 50,

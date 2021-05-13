@@ -11,6 +11,7 @@ import CodeVerification from "./src/views/CodeVerification";
 import PhoneVerification from "./src/views/PhoneVerification";
 import PrivacyPolicy from "./src/views/PrivacyPolicy";
 import TermsAndConditions from "./src/views/TermsAndConditions";
+import MainPage from "./src/views/MainPage";
 
 
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ export default class App extends React.Component {
             <Stack.Screen name="CodeVerification" component={CodeVerification} />
             <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
             <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+            <Stack.Screen name="MainPage" component={MainPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
